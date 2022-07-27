@@ -19,8 +19,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Razorpay? _razorpay;
   TextEditingController amount = TextEditingController();
 
-
-
   @override
   void initState() {
     _razorpay = Razorpay();
@@ -34,7 +32,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     Fluttertoast.showToast(msg: " Payment Successfully");
   }
 
-
   void _handlePaymentError(PaymentFailureResponse response) {
     Fluttertoast.showToast(msg: "Payment failed");
   }
@@ -46,7 +43,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Future<dynamic> createOrder() async {
     var mapHeader = <String, String>{};
     mapHeader['Authorization'] =
-    "Basic cnpwX3Rlc3RfU2RHQmFoV3RsS1dNd2I6Mlh2WElOSDlMcG9xTHdyU3F5cDFzam5y";
+        "Basic cnpwX3Rlc3RfU2RHQmFoV3RsS1dNd2I6Mlh2WElOSDlMcG9xTHdyU3F5cDFzam5y";
     mapHeader['Accept'] = "application/json";
     mapHeader['Content-Type'] = "application/x-www-form-urlencoded";
     var map = <String, String>{};
@@ -61,7 +58,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     print("...." + response.body);
     if (response.statusCode == 200) {
       RazorpayOrderResponse data =
-      RazorpayOrderResponse.fromJson(json.decode(response.body));
+          RazorpayOrderResponse.fromJson(json.decode(response.body));
       openCheckout(data);
     } else {
       Fluttertoast.showToast(msg: "Something went wrong!");
@@ -88,30 +85,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Razorpay intergration"
-        ),
+        title: const Text("Razorpay integration"),
       ),
-    body: Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: TextField(
-            controller: amount,
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              controller: amount,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(),
-              hintText: "Amount"
+              decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(),
+                  hintText: "Amount"),
             ),
           ),
-        ),
-        ElevatedButton.icon(onPressed: ()=>createOrder(), icon: Icon(Icons.arrow_forward_sharp), label: Text("PAY") )
-      ],
-    ),
+          ElevatedButton.icon(
+              onPressed: () => createOrder(),
+              icon: Icon(Icons.arrow_forward_sharp),
+              label: Text("PAY"))
+        ],
+      ),
     );
   }
 }
